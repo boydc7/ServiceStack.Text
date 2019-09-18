@@ -1,7 +1,6 @@
-Follow [@ServiceStack](https://twitter.com/servicestack) or join the [Google+ Community](https://plus.google.com/communities/112445368900682590445)
-for updates, or [StackOverflow](http://stackoverflow.com/questions/ask) or the [Customer Forums](https://forums.servicestack.net/) for support.
+Follow [@ServiceStack](https://twitter.com/servicestack) or [view the docs](https://docs.servicestack.net), use [StackOverflow](http://stackoverflow.com/questions/ask) or the [Customer Forums](https://forums.servicestack.net/) for support.
 
-## FREE high-perf Text Serializers and Core Utils powering [servicestack.net](https://servicestack.net)
+## [FREE high-perf Text Serializers](https://docs.servicestack.net/releases/v4.0.62#servicestacktext-is-now-free) and Core Utils powering [servicestack.net](https://servicestack.net)
 
 ServiceStack.Text is an **independent, dependency-free** serialization library containing ServiceStack's core high-performance utils and text processing functionality, including:
 
@@ -181,10 +180,10 @@ var scope = JS.CreateScope(
 
 JS.eval("arg", scope)                                        //= "value"
 JS.eval("reverse(arg)", scope)                               //= "eulav"
-JS.eval("itemsOf(3, padRight(reverse(arg), 8, '_'))", scope) //= ["eulav___", "eulav___", "eulav___"]
+JS.eval("3.itemsOf(arg.reverse().padRight(8, '_'))", scope) //= ["eulav___", "eulav___", "eulav___"]
 
 //= { a: ["eulav___", "eulav___", "eulav___"] }
-JS.eval("{a: itemsOf(3, padRight(reverse(arg), 8, '_')) }", scope)
+JS.eval("{a: 3.itemsOf(arg.reverse().padRight(8, '_')) }", scope)
 ```
 
 ServiceStack's JS Utils is available in the [ServiceStack.Common](https://www.nuget.org/packages/ServiceStack.Common) NuGet package.
@@ -318,7 +317,7 @@ All C# boolean and numeric data types are stored as-is without quotes.
 For the most compact output null values are omitted from the serialized by default. If you want to include null values set the global configuration:
 
 ```csharp
-JsConfig.IncludeNullValues = true;
+JsConfig.Init(new Config { IncludeNullValues = true });
 ```
 
 ### string type
@@ -480,6 +479,16 @@ JsConfig<Guid>.SerializeFn = guid => guid.ToString("D");
 JsConfig<TimeSpan>.SerializeFn = time => 
     (time.Ticks < 0 ? "-" : "") + time.ToString("hh':'mm':'ss'.'fffffff");
 ```
+
+## Strict Parsing
+
+By default ServiceStack Serializers will try to deserialize as much as possible without error, if you prefer you can opt-in to stricter parsing with:
+
+```csharp
+Env.StrictMode = true;
+```
+
+Where it will instead fail fast and throw Exceptions on deserialization errors.
 
 ## Custom Serialization
 
