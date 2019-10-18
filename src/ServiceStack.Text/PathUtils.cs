@@ -66,7 +66,7 @@ namespace ServiceStack
         public static string MapHostAbsolutePath(this string relativePath)
         {
             var sep = PclExport.Instance.DirSep;
-#if !NETSTANDARD2_1
+#if !NETSTANDARD
             return PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..");
 #else
             return PclExport.Instance.MapAbsolutePath(relativePath, $"{sep}..{sep}..{sep}..");

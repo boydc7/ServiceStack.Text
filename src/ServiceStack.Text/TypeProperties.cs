@@ -4,12 +4,6 @@ using System.Reflection;
 using System.Threading;
 using ServiceStack.Text;
 
-using System.Linq.Expressions;
-
-#if NET45 || NETSTANDARD2_1
-using System.Reflection.Emit;
-#endif
-
 namespace ServiceStack
 {
     public class PropertyAccessor
