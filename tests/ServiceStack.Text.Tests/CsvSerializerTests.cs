@@ -116,7 +116,7 @@ namespace ServiceStack.Text.Tests
         }
 
         [Test]
-        public void Does_parse_fileds_with_unmatchedJsMark()
+        public void Does_parse_fields_with_unmatchedJsMark()
         {
             Assert.That(CsvReader.ParseFields("{A,B"), Is.EqualTo(new[] { "{A", "B" }));
             Assert.That(CsvReader.ParseFields("{A},B"), Is.EqualTo(new[] { "{A}", "B" }));
@@ -375,6 +375,20 @@ namespace ServiceStack.Text.Tests
             };
 
             Assert.That(kvps.ToCsv().NormalizeNewLines(), Is.EqualTo("Id,CustomerId\n1,ALFKI").Or.EqualTo("CustomerId,Id\nALFKI,1"));
+        }
+
+        [Test]
+        public void Can_serialize_fields_with_double_quotes()
+        {
+            var person = new Person { Id = 1, Name = "\"Mr. Lee\"" };
+            Assert.That(person.ToCsv().NormalizeNewLines(), Is.EqualTo("Id,Name\n1,\"\"\"Mr. Lee\"\"\""));
+            var fromCsv = person.ToCsv().FromCsv<Person>();
+            Assert.That(fromCsv, Is.EqualTo(person));
+            
+            person = new Person { Id = 1, Name = "\"Anon\" Review" };
+            Assert.That(person.ToCsv().NormalizeNewLines(), Is.EqualTo("Id,Name\n1,\"\"\"Anon\"\" Review\""));
+            fromCsv = person.ToCsv().FromCsv<Person>();
+            Assert.That(fromCsv, Is.EqualTo(person));
         }
 
         [Test]

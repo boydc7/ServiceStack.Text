@@ -224,16 +224,24 @@ namespace ServiceStack
             return new string(array);
         }
 
+        private static char[] UrlPathDelims = new[] {'?', '#'};
+
+        public static string UrlWithTrailingSlash(this string url)
+        {
+            var endPos = url?.IndexOfAny(UrlPathDelims) ?? -1;
+            return endPos >= 0
+                ? url.Substring(0, endPos).WithTrailingSlash() + url.Substring(endPos)
+                : url.WithTrailingSlash();
+        }
+        
         public static string WithTrailingSlash(this string path)
         {
-            if (String.IsNullOrEmpty(path))
+            if (path == null)
                 throw new ArgumentNullException(nameof(path));
+            if (path == "")
+                return "/";
 
-            if (path[path.Length - 1] != '/')
-            {
-                return path + "/";
-            }
-            return path;
+            return path[path.Length - 1] != '/' ? path + "/" : path;
         }
 
         public static string AppendPath(this string uri, params string[] uriComponents)
@@ -525,7 +533,7 @@ namespace ServiceStack
         {
             return TypeSerializer.DeserializeFromSpan<T>(jsv);
         }
-
+        
         public static string ToJson<T>(this T obj)
         {
             return JsConfig.PreferInterfaces
@@ -689,7 +697,8 @@ namespace ServiceStack
         {
             return string.IsNullOrEmpty(text) || text.Length < 2
                 ? text
-                : text[0] == '"' && text[text.Length - 1] == '"'
+                : (text[0] == '"' && text[text.Length - 1] == '"') ||
+                  (text[0] == '\'' && text[text.Length - 1] == '\'')
                     ? text.Substring(1, text.Length - 2)
                     : text;
         }
