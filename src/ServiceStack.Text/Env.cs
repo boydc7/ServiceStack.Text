@@ -68,7 +68,7 @@ namespace ServiceStack.Text
             SupportsDynamic = true;
 #endif
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_1
             IsNetStandard20 = true;
 #endif
 
