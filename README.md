@@ -96,7 +96,7 @@ JsonArrayObjects.Parse()
 
 ### Pretty Print JSON
 
-You an format JSON into a more readable format with the `IndentJson()` extension method, e.g: 
+You can format JSON into a more readable format with the `IndentJson()` extension method, e.g: 
 
 ```csharp
 var prettyJson = dto.ToJson().IndentJson();
@@ -152,7 +152,7 @@ project. It provides a dynamic, but more succinct API than the above options.
 
 ### JS Utils
 
-ServiceStack.Text APIs for deserializing arbitrary JSON requires specifying the the Type to deserialize into. An alternative flexible approach to read any arbitrary JavaScript or JSON data structures is to use the high-performance and memory efficient JSON utils in 
+ServiceStack.Text APIs for deserializing arbitrary JSON requires specifying the Type to deserialize into. An alternative flexible approach to read any arbitrary JavaScript or JSON data structures is to use the high-performance and memory efficient JSON utils in 
 [#Script](https://sharpscript.net/) implementation of JavaScript.
 
 ```csharp
@@ -166,7 +166,7 @@ JSON.parse("[{a:1}]") //= new List<object> { new Dictionary<string, object> { { 
 #### Eval
 
 Since JS Utils is an essential part of [#Script](https://sharpscript.net/) it allows for advanced scenarios like implementing a text DSL or scripting language for executing custom logic or business rules you want to be able to change without having to compile or redeploy your App. It uses [#Script Context](https://sharpscript.net/docs/methods) which lets you evaluate the script within a custom scope that defines what functions 
-and arguments it has access to, e.g:
+and arguments it has access to, e.g.:
 
 ```csharp
 public class CustomMethods : ScriptMethods
@@ -192,7 +192,7 @@ ServiceStack's JS Utils is available in the [ServiceStack.Common](https://www.nu
 
     PM> Install-Package ServiceStack.Text
 
-> From v4.0.62+ [ServiceStack.Text is now free!](https://github.com/ServiceStack/ServiceStack/blob/master/docs/2016/v4.0.62.md#servicestacktext-is-now-free)
+> From v4.0.62+ [ServiceStack.Text is now free!](https://docs.servicestack.net/releases/v4.0.62#servicestacktext-is-now-free)
 
 ## Copying
 
@@ -205,7 +205,7 @@ Contributors need to approve the [Contributor License Agreement](https://docs.go
 ## ServiceStack.JsonSerializer
 
 For reasons outlined [in this blog post](https://github.com/ServiceStackV3/mythz_blog/blob/master/pages/344.md) I decided to re-use *TypeSerializer's* text processing-core to create ServiceStack.JsonSerializer - the fastest JSON Serializer for .NET.
-Based on the [Northwind Benchmarks](http://mono.servicestack.net/benchmarks/) it's *3.6x* faster than .NET's BCL JsonDataContractSerializer and *3x* faster then the previous fastest JSON serializer benchmarked - [JSON.NET](http://json.codeplex.com/).
+Based on the [Northwind Benchmarks](http://mono.servicestack.net/benchmarks/) it's *3.6x* faster than .NET's BCL JsonDataContractSerializer and *3x* faster than the previous fastest JSON serializer benchmarked - [JSON.NET](http://json.codeplex.com/).
 
 A comprehensive set of other .NET benchmarks are maintained at [servicestack.net/benchmarks](http://mono.servicestack.net/benchmarks/) and [in the wiki](https://github.com/ServiceStack/ServiceStack/wiki/Real-world-performance).
 
@@ -294,7 +294,7 @@ new []{ 1, 2, 3 }.ToJson()   //= [1,2,3]
 
 ## JSON Format 
 
-JSON is a lightweight text serialization format with a spec that's so simple that it fits on one page: [http://www.json.org](json.org).
+JSON is a lightweight text serialization format with a spec that's so simple that it fits on one page: [https://www.json.org](https://www.json.org).
 
 The only valid values in JSON are:
 
@@ -793,7 +793,7 @@ is escaped using CSV-style escaping where the value is wrapped in double quotes,
 
     {Name:"Me, Junior"}
 
-A value with a double-quote is escaped with another double quote e.g:
+A value with a double quote is escaped with another double quote e.g:
 
 `new MyClass { Size = "2\" x 1\"" }` is serialized as:
 
