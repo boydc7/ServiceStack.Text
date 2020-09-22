@@ -551,6 +551,30 @@ namespace ServiceStack
             return to;
         }
 
+        public static To PopulateWithNonDefaultValues<To, From>(this To to, From from, Func<PropertyInfo, bool> propertyInfoPredicate)
+            where To : class
+            where From : class
+        {
+            if (to == null)
+            {
+                return null;
+            }
+
+            if (from == null)
+            {
+                return to;
+            }
+
+            var assignmentDefinition = GetAssignmentDefinition(to.GetType(), from.GetType());
+
+            static bool nonDefaultPredicate(object x, Type t)
+                => x != null && !Equals(x, t.GetDefaultValue());
+
+            assignmentDefinition.Populate(to, from, propertyInfoPredicate, nonDefaultPredicate);
+
+            return to;
+        }
+
         public static To PopulateFromPropertiesWithAttribute<To, From>(this To to, From from,
             Type attributeType)
         {
